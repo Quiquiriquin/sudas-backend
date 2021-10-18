@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import db from './models/index';
 import http from 'http';
 const debug = require('debug', 'sudas-backend:server')
@@ -11,6 +13,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
 db.sequelize.sync({ force: true });
 app.use(logger('dev'));
 app.use(express.json());
@@ -89,6 +92,7 @@ const onListening = () => {
  * Listen on provided port, on all network interfaces.
  */
 
+console.log(process.env.NODE_ENV);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
