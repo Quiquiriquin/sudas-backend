@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec babel-node ./bin/www"
+    "build": "babel ./ -d dist --ignore node_modules",
+    "start": "nodemon --exec babel-node app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
