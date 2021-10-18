@@ -1,0 +1,249 @@
+{
+    "info": {
+        "_postman_id": "f6f18f71-f0bf-45ac-8f37-f571c516c7d8",
+        "name": "Sudas endpoints",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "POST User",
+            "id": "06ec21a5-f871-4f93-84ea-7e39b9d1c8ce",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"Enrique\",\n    \"firstSurname\": \"Alvarez\",\n    \"password\": \"Enrique\",\n    \"email\": \"enriques@gmail.com\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/users",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "users"
+                    ]
+                },
+                "description": "Registro de un usuario, cuando ya hay una unidad académica registrada"
+            },
+            "response": [
+                {
+                    "id": "056e16cd-8cd2-4d2a-884d-61b121dddefe",
+                    "name": "POST User Success",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Enrique\",\n    \"firstSurname\": \"Alvarez\",\n    \"password\": \"Enrique\",\n    \"email\": \"enrique@gmail.com\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/v1/users",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "v1",
+                                "users"
+                            ]
+                        }
+                    },
+                    "status": "Created",
+                    "code": 201,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "185"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"b9-qAidS9Oai50uipuHlYxmGCM/Ozc\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sun, 17 Oct 2021 04:20:20 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "{\n    \"status\": \"ACTIVE\",\n    \"role\": \"ADMIN\",\n    \"id\": 1,\n    \"email\": \"enrique@gmail.com\",\n    \"password\": \"$2b$12$dT7WuxKYPvzcFG8izD9MTuV63FrUU8XT95zwl2.mHkNsihrZD8sT2\",\n    \"name\": \"Enrique\",\n    \"firstSurname\": \"Alvarez\"\n}"
+                },
+                {
+                    "id": "33d3250b-443e-4e23-9721-31752d38f86c",
+                    "name": "POST User 400",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Enrique\",\n    \"firstSurname\": \"Alvarez\",\n    \"password\": \"Enrique\",\n    \"email\": \"enrique@gmail.com\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/v1/users",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "v1",
+                                "users"
+                            ]
+                        }
+                    },
+                    "status": "Bad Request",
+                    "code": 400,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "X-Powered-By",
+                            "value": "Express"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json; charset=utf-8"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "435"
+                        },
+                        {
+                            "key": "ETag",
+                            "value": "W/\"1b3-C7MvrmSX97I4udgWfnfHXw4TbXQ\""
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sun, 17 Oct 2021 04:20:42 GMT"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "keep-alive"
+                        },
+                        {
+                            "key": "Keep-Alive",
+                            "value": "timeout=5"
+                        }
+                    ],
+                    "cookie": [],
+                    "responseTime": null,
+                    "body": "{\n    \"message\": \"Error occurred\",\n    \"errors\": [\n        {\n            \"message\": \"user.email must be unique\",\n            \"type\": \"unique violation\",\n            \"path\": \"user.email\",\n            \"value\": \"enrique@gmail.com\",\n            \"origin\": \"DB\",\n            \"instance\": {\n                \"status\": \"ACTIVE\",\n                \"role\": \"ADMIN\",\n                \"id\": null,\n                \"email\": \"enrique@gmail.com\",\n                \"password\": \"$2b$12$nrCNbn1zCAfoksNGaC4lSO4EPfzEuKc2WL5KI/We4gDlzQsz4AXra\",\n                \"name\": \"Enrique\",\n                \"firstSurname\": \"Alvarez\"\n            },\n            \"validatorKey\": \"not_unique\",\n            \"validatorName\": null,\n            \"validatorArgs\": []\n        }\n    ]\n}"
+                }
+            ]
+        },
+        {
+            "name": "POST login",
+            "id": "44a79e9e-acd9-4400-820b-5ecfcee7cf7c",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"password\": \"Enrique\",\n    \"email\": \"enrique@gmail.com\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/users/login",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "users",
+                        "login"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "GET Users",
+            "id": "c4c88ec3-4723-4cdf-a293-89c693ea655b",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/users",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "users"
+                    ]
+                },
+                "description": "List all users"
+            },
+            "response": []
+        }
+    ],
+    "auth": {
+        "type": "basic",
+        "basic": [
+            {
+                "key": "username",
+                "value": "<Basic Auth Username>",
+                "type": "string"
+            },
+            {
+                "key": "password",
+                "value": "<Basic Auth Password>",
+                "type": "string"
+            }
+        ]
+    },
+    "variable": [
+        {
+            "id": "a7d3887c-daaf-4ac2-9669-8e6555188b10",
+            "key": "baseUrl",
+            "value": "localhost:3000",
+            "type": "string"
+        }
+    ]
+}
