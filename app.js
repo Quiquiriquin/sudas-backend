@@ -15,7 +15,7 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 
-db.sequelize.sync({ force: true });
+db.sequelize.sync();
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 const server = http.createServer(app);

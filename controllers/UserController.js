@@ -35,14 +35,15 @@ const UserController = {
       if (user) {
         const validPassword = await bcrypt.compare(passwordBeforeHash, user.password);
         if(validPassword) {
-          res.status(200).send(user);
+          delete user.password;
+          return res.status(200).send(user);
         }
       }
-      res.status(400).send({
+      return res.status(400).send({
         message: 'Invalud email or password',
       });
     } catch (e){
-      res.status(400).send({
+      return res.status(400).send({
         message: 'Something happened',
         errors: e.errors,
       });
