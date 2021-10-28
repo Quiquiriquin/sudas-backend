@@ -3,6 +3,9 @@ dotenv.config();
 import cors from 'cors';
 import db from './models/index';
 import http from 'http';
+import verbsRoutes from './routes/verbs';
+import connectorsRoutes from './routes/connectors';
+import achivementsRoutes from './routes/achivements';
 const debug = require('debug', 'sudas-backend:server')
 const express = require('express');
 const path = require('path');
@@ -24,6 +27,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/verb', verbsRoutes);
+app.use('/api/v1/connector', connectorsRoutes);
+app.use('/api/v1/achivement', achivementsRoutes);
 
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
