@@ -3,18 +3,59 @@ import models from '../models/index';
 import bcrypt from 'bcrypt';
 
 const UserController = {
+  createAdmin: async (req, res) => {
+    try {
+      const { users } = req.body;
+      console.log(users, req.body);
+      if (users.length > 0) {
+        const auxUsers = users.map(({email, academicGrade, department}) => {
+          return models.user.findOrCreate({
+            where: {
+              email,
+            },
+            defaults: {
+              email,
+              academicGrade,
+              department,
+              status: 'PENDING'
+            },
+          });
+        });
+        const answers = await Promise.all(auxUsers);
+        return res.status(201).send(answers);
+      }
+      return res.status(200).send('No users');
+    } catch (e) {
+      console.log(e);
+      res.status(400).send({
+        message: 'Error occurred',
+        errors: e.errors,
+      });
+    }
+  },
   create: async (req, res) => {
     try {
       const { email, password, name, firstSurname, secondSurname } = req.body;
+      const user = await models.user.findOne({
+        where: {
+          email,
+        },
+      });
+      if (!user) {
+        return res.status(400).send({
+          message: 'Unauthorized user',
+        });
+      }
       const cipherPassword = await bcrypt.hash(password, 12);
-      const newUser = await models.user.create({
-        email,
+      await user.update({
         password: cipherPassword,
         name,
         firstSurname,
         secondSurname,
       });
-      res.status(201).send(newUser);
+      await user.save();
+      delete user.password;
+      return res.status(201).send(user);
     } catch (e) {
       console.log(e);
       res.status(400).send({
@@ -52,9 +93,9 @@ const UserController = {
   list: async (req, res) => {
     try {
       const users = await models.user.findAll({
-        where: {
-          status: 'ACTIVE',
-        },
+        // where: {
+        //   status: 'ACTIVE',
+        // },
       });
       res.status(200).send(
         users,

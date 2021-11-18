@@ -15,10 +15,11 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const dashboardRouter = require('./routes/dashboard');
 
 const app = express();
 
-db.sequelize.sync();
+db.sequelize.sync({ alter: true });
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/dashboard', dashboardRouter);
 app.use('/api/v1/verb', verbsRoutes);
 app.use('/api/v1/connector', connectorsRoutes);
 app.use('/api/v1/achivement', achivementsRoutes);

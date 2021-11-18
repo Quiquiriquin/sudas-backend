@@ -13,13 +13,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     firstSurname: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     secondSurname: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    academicGrade: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    department: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -27,17 +35,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       defaultValue: 'ACTIVE',
       type: DataTypes.ENUM({
-        values: ['ACTIVE', 'INACTIVE', 'BLOCKED']
+        values: ['ACTIVE', 'INACTIVE', 'BLOCKED', 'PENDING']
       }),
     },
     password: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
     },
     role: {
       type: DataTypes.ENUM,
       defaultValue: 'ADMIN',
       values: ['ADMIN', 'USER', 'STUDENT'],
+      allowNull: false,
     }
   }, {
     timestamps: false,

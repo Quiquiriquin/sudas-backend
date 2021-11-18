@@ -4,6 +4,7 @@ var router = express.Router();
 
 
 /* GET users listing. */
+router.post('/users-dashboard', UserController.createAdmin);
 router.post('/', UserController.create);
 router.post('/login', UserController.login);
 router.get('/', UserController.list)
