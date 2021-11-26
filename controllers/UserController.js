@@ -1,4 +1,4 @@
-import sequelize from 'sequelize';
+import sequelize, {Op} from 'sequelize';
 import models from '../models/index';
 import bcrypt from 'bcrypt';
 
@@ -92,19 +92,53 @@ const UserController = {
   },
   list: async (req, res) => {
     try {
+
+      const statusArray = req.query && req.query.filter
+          ? req.query.filter.split(',')
+          : null;
       const users = await models.user.findAll({
-        // where: {
-        //   status: 'ACTIVE',
-        // },
+        ...(statusArray) ? {
+          where: {
+            [Op.or]: statusArray.map((elem) => ({ status: elem }))
+          },
+        } : {},
       });
-      res.status(200).send(
+      return res.status(200).send(
         users,
       );
     } catch (e) {
-      res.status(400).send({
+      return res.status(400).send({
         message: 'Something happened',
         errors: e.errors,
       });
+    }
+  },
+  update: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { body } = req;
+      const user = await models.user.findByPk(id);
+      if (user) {
+        console.log(body);
+
+        return res.status(200).send({
+          ...user,
+        });
+      };
+      return res.status(204).send({
+        message: 'Not user found with that primary key',
+      });
+    } catch (e) {
+      return res.status(400).send(e);
+    }
+  },
+  get: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await models.user.findByPk(id);
+      return res.status(200).send(user);
+    } catch (e) {
+      return res.status(400).send(e);
     }
   },
 };

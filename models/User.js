@@ -47,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'ADMIN',
       values: ['ADMIN', 'USER', 'STUDENT'],
       allowNull: false,
+    },
+    profilePic: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   }, {
     timestamps: false,
