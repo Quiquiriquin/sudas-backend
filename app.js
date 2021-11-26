@@ -16,7 +16,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const dashboardRouter = require('./routes/dashboard');
-
+const academicRouter = require('./routes/academicPlans');
 const app = express();
 
 db.sequelize.sync({ alter: true });
@@ -32,6 +32,7 @@ app.use('/api/v1/dashboard', dashboardRouter);
 app.use('/api/v1/verb', verbsRoutes);
 app.use('/api/v1/connector', connectorsRoutes);
 app.use('/api/v1/achivement', achivementsRoutes);
+app.use('/api/v1/academic-plan', academicRouter);
 
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);

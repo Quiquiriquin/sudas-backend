@@ -117,18 +117,22 @@ const UserController = {
     try {
       const { id } = req.params;
       const { body } = req;
-      const user = await models.user.findByPk(id);
+      let user = await models.user.update(body, {
+        where: {
+          id,
+        },
+      });
       if (user) {
-        console.log(body);
-
+        console.log(user);
         return res.status(200).send({
-          ...user,
+          ...body,
         });
       };
       return res.status(204).send({
         message: 'Not user found with that primary key',
       });
     } catch (e) {
+      console.log(e);
       return res.status(400).send(e);
     }
   },
