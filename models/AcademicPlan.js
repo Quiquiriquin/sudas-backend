@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         // associations can be defined here
         AcademicPlan.belongsTo(models.school, {
             foreignKey: 'schoolId',
-        })
+        });
     };
     return AcademicPlan;
 };
