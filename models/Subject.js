@@ -55,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
         Subject.belongsTo(models.academicPlan, {
             foreignKey: 'academicPlanId',
         });
+
+        Subject.hasOne(models.objective, {
+            foreignKey: 'subjectId',
+        });
     };
     return Subject;
 };

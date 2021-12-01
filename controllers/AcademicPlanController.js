@@ -30,12 +30,15 @@ const AcademicPlanController = {
     get: async (req, res) => {
         try {
             const { id } = req.params;
-            const verb = await models.verb.findOne({
+            const academicPlan = await models.academicPlan.findOne({
                 where: {
                     id,
                 },
+                include: {
+                    all: true,
+                }
             });
-            return res.status(200).send(verb);
+            return res.status(200).send(academicPlan);
         } catch (e) {
             console.log(e);
             return res.status(400).send(e);
