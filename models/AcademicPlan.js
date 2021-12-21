@@ -45,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
         AcademicPlan.belongsTo(models.school, {
             foreignKey: 'schoolId',
         });
+
+        AcademicPlan.hasMany(models.subject, {
+            foreignKey: 'academicPlanId',
+        })
     };
     return AcademicPlan;
 };

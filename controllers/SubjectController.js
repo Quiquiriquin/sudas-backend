@@ -1,12 +1,14 @@
 import models from '../models/index';
-import moment from "moment";
 
-const AcademicPlanController = {
+const SubjectController = {
     create: async (req, res) => {
         try {
             const { body } = req;
-            const newAcademicPlan = await models.academicPlan.create(body);
-            return res.status(201).send(newAcademicPlan);
+            const subject = await models.subject.create({
+                ...body,
+                purpose: 'Evalúa conceptos y ténicas básicas de la microbiología en general con base en los lineamientos de las buenas prácticas de laboratorio'
+            });
+            return res.status(201).send(subject);
         } catch (e) {
             console.log(e);
             return res.status(400).send({
@@ -17,43 +19,27 @@ const AcademicPlanController = {
     },
     list: async (req, res) => {
         try {
-            const today = moment(new Date());
-            const plans = await models.academicPlan.findAll({
+            const { query } = req;
+            if (query && query.academicPlanId) {
+                const filteredSubjects = await models.subject.findAll({
+                    where: {
+                        academicPlanId: query.academicPlanId
+                    },
+                    include: {
+                        all: true,
+                    },
+                });
+                return res.status(200).send(
+                    filteredSubjects,
+                );
+            }
+            const subjects = await models.subject.findAll({
                 include: {
                     all: true,
                 }
             });
-            const resultPlans = plans.map(({ dataValues: { subjects, ...elem } }) => {
-                let active = 0
-                let noAssigned = 0
-                let stopped = 0
-                let total = 0
-                for(let i = 0; i < subjects.length; i++){
-                    console.log(subjects[i]);
-                    const { updatedAt } = subjects[i];
-                    const lastUpdate = moment(new Date(updatedAt))
-                    const diff = today.diff(lastUpdate, 'days');
-                    if (diff >= 3) {
-                        stopped += 1;
-                    } else {
-                        active += 1;
-                    }
-                    noAssigned += 1;
-                    total += 1;
-                }
-
-                return {
-                    ...elem,
-                    subjects: {
-                        active,
-                        noAssigned,
-                        stopped,
-                        total
-                    },
-                };
-            })
             return res.status(200).send(
-                resultPlans,
+                subjects
             );
         } catch (e) {
             console.log(e);
@@ -66,7 +52,7 @@ const AcademicPlanController = {
     get: async (req, res) => {
         try {
             const { id } = req.params;
-            const academicPlan = await models.academicPlan.findOne({
+            const subject = await models.subject.findOne({
                 where: {
                     id,
                 },
@@ -74,8 +60,24 @@ const AcademicPlanController = {
                     all: true,
                 }
             });
-            console.log(academicPlan);
-            return res.status(200).send(academicPlan);
+            return res.status(200).send(subject);
+        } catch (e) {
+            console.log(e);
+            return res.status(400).send(e);
+        }
+    },
+    getBiblio: async (req, res) => {
+        try {
+            const { subjectId } = req.params;
+            const biblographies = await models.bibliography.findAll({
+                where: {
+                    subjectId,
+                },
+                include: {
+                    all: true,
+                }
+            });
+            return res.status(200).send(biblographies);
         } catch (e) {
             console.log(e);
             return res.status(400).send(e);
@@ -122,4 +124,4 @@ const AcademicPlanController = {
     },
 };
 
-export default AcademicPlanController;
+export default SubjectController;

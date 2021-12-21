@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Objective = sequelize.define('objective', {
+    const UnitCompetence = sequelize.define('unitCompetence', {
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -7,15 +7,19 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         description: {
-            type: DataTypes.STRING
-        }
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     }, {
         timestamps: true,
         freezeTableName: true,
         classMethods: {}
     });
-    Objective.associate = function(models) {
+    UnitCompetence.associate = function(models) {
         // associations can be defined here
+        UnitCompetence.belongsTo(models.content, {
+            foreignKey: 'contentId',
+        });
     };
-    return Objective;
+    return UnitCompetence;
 };

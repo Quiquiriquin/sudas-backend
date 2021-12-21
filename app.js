@@ -17,6 +17,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const dashboardRouter = require('./routes/dashboard');
 const academicRouter = require('./routes/academicPlans');
+const subjectRouter = require('./routes/subjects');
+const contentRouter = require('./routes/contents');
+const unitRouter = require('./routes/unitsCompetence');
+const objectives = require('./routes/objectives');
 const app = express();
 
 db.sequelize.sync({ alter: true });
@@ -33,6 +37,10 @@ app.use('/api/v1/verb', verbsRoutes);
 app.use('/api/v1/connector', connectorsRoutes);
 app.use('/api/v1/achivement', achivementsRoutes);
 app.use('/api/v1/academic-plan', academicRouter);
+app.use('/api/v1/subject', subjectRouter);
+app.use('/api/v1/objective', objectives);
+app.use('/api/v1/content', contentRouter);
+app.use('/api/v1/unit-competence', unitRouter);
 
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);

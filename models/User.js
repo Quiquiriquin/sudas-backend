@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       allowNull: false,
       type: DataTypes.STRING,
-      unique: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -53,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     }
   }, {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     classMethods: {}
   });

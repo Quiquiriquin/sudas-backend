@@ -7,10 +7,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         name: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         semester: {
-            type: DataTypes.STRING
+            type: DataTypes.INTEGER,
+            allowNull: false,
         },
         modality: {
             type: DataTypes.ENUM({
@@ -20,33 +22,55 @@ module.exports = (sequelize, DataTypes) => {
         },
         trainingArea: {
             type: DataTypes.STRING,
+            allowNull: true,
         },
         type: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false,
         },
-        credits: {
+        tepic: {
             type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        satca: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
         },
         totalHours: {
             type: DataTypes.FLOAT,
+            allowNull: true,
         },
         theoryWeek: {
             type: DataTypes.FLOAT,
+            allowNull: true,
         },
         practiceWeek: {
             type: DataTypes.FLOAT,
+            allowNull: true,
         },
         theorySemester: {
             type: DataTypes.FLOAT,
+            allowNull: true,
         },
         practiceSemester: {
             type: DataTypes.FLOAT,
+            allowNull: true,
         },
         autonomousLearning: {
             type: DataTypes.FLOAT,
+            allowNull: true,
+            defaultValue: 0
         },
+        educationalIntention: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        purpose: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        }
     }, {
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true,
         classMethods: {}
     });
@@ -59,6 +83,22 @@ module.exports = (sequelize, DataTypes) => {
         Subject.hasOne(models.objective, {
             foreignKey: 'subjectId',
         });
+
+        Subject.hasMany(models.bibliography, {
+            foreignKey: 'subjectId',
+        });
+
+        Subject.hasMany(models.content, {
+            foreignKey: 'subjectId',
+        });
+
+/*        Subject.hasOne(models.user, {
+            as: 'Coordinator',
+        });
+
+        Subject.hasMany(models.user, {
+            as: 'Collaborator'
+        });*/
     };
     return Subject;
 };

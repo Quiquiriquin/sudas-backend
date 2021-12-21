@@ -1,12 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-    const Objective = sequelize.define('objective', {
+    const Editorial = sequelize.define('editorial', {
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        description: {
+        name: {
+            allowNull: false,
             type: DataTypes.STRING
         }
     }, {
@@ -14,8 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         freezeTableName: true,
         classMethods: {}
     });
-    Objective.associate = function(models) {
+    Editorial.associate = function(models) {
         // associations can be defined here
+        Editorial.belongsTo(models.bibliography, {
+            foreignKey: 'bibliographyId'
+        })
     };
-    return Objective;
+    return Editorial;
 };

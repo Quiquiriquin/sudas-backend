@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['ADMIN', 'USER', 'STUDENT'],
     }
   }, {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     classMethods: {}
   });
