@@ -35,27 +35,41 @@ const UserController = {
   },
   create: async (req, res) => {
     try {
-      const { email, password, name, firstSurname, secondSurname } = req.body;
-      const user = await models.user.findOne({
-        where: {
-          email,
-        },
-      });
-      if (!user) {
-        return res.status(400).send({
-          message: 'Unauthorized user',
+      const { email, password, name, firstSurname, secondSurname, role } = req.body;
+      let user;
+      if (!role) {
+        user = await models.user.findOne({
+          where: {
+            email,
+          },
         });
+        if (!user) {
+          return res.status(400).send({
+            message: 'Unauthorized user',
+          });
+        }
+        const cipherPassword = await bcrypt.hash(password, 12);
+        await user.update({
+          password: cipherPassword,
+          name,
+          firstSurname,
+          secondSurname,
+        });
+        await user.save();
+        delete user.password;
+        return res.status(201).send(user);
+      } else {
+        const cipherPassword = await bcrypt.hash(password, 12);
+        user = await models.user.create({
+          password: cipherPassword,
+          name,
+          firstSurname,
+          secondSurname,
+          email,
+        })
+        delete user.password;
+        return res.status(201).send(user);
       }
-      const cipherPassword = await bcrypt.hash(password, 12);
-      await user.update({
-        password: cipherPassword,
-        name,
-        firstSurname,
-        secondSurname,
-      });
-      await user.save();
-      delete user.password;
-      return res.status(201).send(user);
     } catch (e) {
       console.log(e);
       res.status(400).send({

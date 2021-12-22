@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         modality: {
             type: DataTypes.ENUM({
-                values: ['FACE2FACE', 'ONLINE']
+                values: ['FACE2FACE', 'ONLINE', 'MIX']
             }),
             allowNull: true,
         },
@@ -68,7 +68,8 @@ module.exports = (sequelize, DataTypes) => {
         purpose: {
             type: DataTypes.STRING,
             allowNull: true,
-        }
+        },
+
     }, {
         timestamps: true,
         freezeTableName: true,
