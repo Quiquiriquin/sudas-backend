@@ -85,10 +85,10 @@ const SubjectController = {
     },
     update: async (req, res) => {
         try {
-            const { id, description } = req.body;
-            const updatedVerb = await models.verb.update(
+            const { id, ...fields } = req.body;
+            const updatedVerb = await models.subject.update(
                 {
-                    description,
+                    ...fields,
                 },
                 {
                     where: {
@@ -96,7 +96,7 @@ const SubjectController = {
                     },
                 }
             );
-            return res.status(200).send({ message: 'Verb updated' });
+            return res.status(200).send({ message: 'Subject updated' });
         } catch (e) {
             console.log(e);
             return res.status(400).send({
