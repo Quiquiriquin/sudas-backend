@@ -62,11 +62,11 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: 0
         },
         educationalIntention: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(1000),
             allowNull: true,
         },
         purpose: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(1000),
             allowNull: true,
         },
 
