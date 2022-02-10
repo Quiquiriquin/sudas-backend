@@ -8,7 +8,7 @@ const UserController = {
       const { users } = req.body;
       console.log(users, req.body);
       if (users.length > 0) {
-        const auxUsers = users.map(({email, academicGrade, department}) => {
+        const auxUsers = users.map(({email, academicGrade, department, role}) => {
           return models.user.findOrCreate({
             where: {
               email,
@@ -17,7 +17,8 @@ const UserController = {
               email,
               academicGrade,
               department,
-              status: 'PENDING'
+              status: 'PENDING',
+              role,
             },
           });
         });
@@ -43,6 +44,7 @@ const UserController = {
             email,
           },
         });
+        console.log('Entré al if', user);
         if (!user) {
           return res.status(400).send({
             message: 'Unauthorized user',
@@ -59,6 +61,7 @@ const UserController = {
         delete user.password;
         return res.status(201).send(user);
       } else {
+        console.log('Entré al else');
         const cipherPassword = await bcrypt.hash(password, 12);
         user = await models.user.create({
           password: cipherPassword,
