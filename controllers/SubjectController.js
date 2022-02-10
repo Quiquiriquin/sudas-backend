@@ -66,6 +66,18 @@ const SubjectController = {
             return res.status(400).send(e);
         }
     },
+    getRelatedSubjects: async (req, res) => {
+        try {
+            const { semester } = req.params;
+            console.log(semester);
+            const base = parseInt(semester);
+            const [befPrev, prev] = semester >= 3 ? [semester - 2, semester - 1] : [1, 1];
+            const [next, afNext] = [semester + 1, semester + 1];
+            return res.status(200).send('Hola');
+        } catch (e) {
+            return res.status(400).send(e);
+        }
+    },
     getBiblio: async (req, res) => {
         try {
             const { subjectId } = req.params;

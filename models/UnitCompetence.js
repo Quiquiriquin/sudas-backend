@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         UnitCompetence.belongsTo(models.content, {
             foreignKey: 'contentId',
         });
+
+        UnitCompetence.hasOne(models.purpose, {
+            foreignKey: 'unitCompentenceId',
+        });
     };
     return UnitCompetence;
 };

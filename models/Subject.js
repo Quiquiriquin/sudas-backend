@@ -65,11 +65,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(1000),
             allowNull: true,
         },
-        purpose: {
-            type: DataTypes.STRING(1000),
-            allowNull: true,
-        },
-
     }, {
         timestamps: true,
         freezeTableName: true,
@@ -89,6 +84,10 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         Subject.hasMany(models.content, {
+            foreignKey: 'subjectId',
+        });
+
+        Subject.hasOne(models.purpose, {
             foreignKey: 'subjectId',
         });
 
