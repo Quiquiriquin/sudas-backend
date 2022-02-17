@@ -69,11 +69,39 @@ const SubjectController = {
     getRelatedSubjects: async (req, res) => {
         try {
             const { semester } = req.params;
-            console.log(semester);
             const base = parseInt(semester);
-            const [befPrev, prev] = semester >= 3 ? [semester - 2, semester - 1] : [1, 1];
-            const [next, afNext] = [semester + 1, semester + 1];
-            return res.status(200).send('Hola');
+            const [befPrev, prev] = base >= 3 ? [base - 2, base - 1] : [1, 1];
+            const [next, afNext] = [base + 1, base + 2];
+            let same = await models.subject.findAll({
+                where: {
+                    semester,
+                },
+            });
+            let beforePrevSem = await models.subject.findAll({
+                where: {
+                    semester: befPrev,
+                },
+            });
+            let prevSem = await models.subject.findAll({
+                where: {
+                    semester: prev,
+                },
+            });
+            let nextSem = await models.subject.findAll({
+                where: {
+                    semester: next,
+                },
+            });
+            let afNextSem = await models.subject.findAll({
+                where: {
+                    semester: afNext,
+                },
+            });
+            return res.status(200).send({
+                same,
+                prev: [...beforePrevSem, ...prevSem],
+                next: [...nextSem, ...afNextSem],
+              });
         } catch (e) {
             return res.status(400).send(e);
         }

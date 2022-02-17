@@ -6,8 +6,8 @@ var router = express.Router();
 /* GET users listing. */
 router.post('/', SubjectController.create);
 router.get('/', SubjectController.list);
+router.get('/related/:semester', SubjectController.getRelatedSubjects);
 router.get('/:id', SubjectController.get);
-router.get('/related', SubjectController.getRelatedSubjects);
 router.patch('/:id', SubjectController.update);
 router.get('/biblio/:subjectId', SubjectController.getBiblio);
 
