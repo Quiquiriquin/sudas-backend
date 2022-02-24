@@ -10,5 +10,6 @@ router.get('/related/:semester', SubjectController.getRelatedSubjects);
 router.get('/:id', SubjectController.get);
 router.patch('/:id', SubjectController.update);
 router.get('/biblio/:subjectId', SubjectController.getBiblio);
+router.get('/collaborator/:collaborator', SubjectController.collaboratorSubjects);
 
 module.exports = router;

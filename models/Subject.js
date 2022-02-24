@@ -91,13 +91,25 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'subjectId',
         });
 
-/*        Subject.hasOne(models.user, {
+        Subject.belongsToMany(models.user, {
+            through: 'CoordinatorSubject',
             as: 'Coordinator',
         });
 
-        Subject.hasMany(models.user, {
-            as: 'Collaborator'
-        });*/
+        // Subject.belongsTo(models.user, {
+        //     foreignKey: 'coordinatorId',
+        //     as: 'Coordinator',
+        // });
+        // Subject.belongsToMany(models.user, {
+        //     foreignKey: 'collaboratorId',
+        //     as: 'Collaborator',
+        //     through: 'SubjectCollaborator'
+        // });
+        // Subject.belongsTo(models.user);
+        Subject.belongsToMany(models.user, {
+            through: 'CollaboratorSubject',
+            as: 'Collaborator',
+        });
     };
     return Subject;
 };

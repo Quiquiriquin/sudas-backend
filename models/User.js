@@ -58,6 +58,21 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.associate = function(models) {
     // associations can be defined here
+    User.belongsToMany(models.subject, {
+      as: 'Collaborator',
+      through: 'CollaboratorSubject'
+    })
+    User.belongsToMany(models.subject, {
+      as: 'Coordinator',
+      through: 'CoordinatorSubject',
+    });
+
+    // User.hasOne(models.subject);
+    // User.hasOne(models.subject, {
+    //   as: 'Coordinator',
+    //   foreignKey: 'coordinatorId',
+    // });
+    // User.belongsTo(models.subject);
   };
   return User;
 };

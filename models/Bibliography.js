@@ -21,12 +21,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     Bibliography.associate = function(models) {
         // associations can be defined here
-        Bibliography.hasMany(models.author, {
-            foreignKey: 'bibliographyId'
-        });
-        Bibliography.hasOne(models.editorial, {
-            foreignKey: 'bibliographyId'
-        });
     };
     return Bibliography;
 };

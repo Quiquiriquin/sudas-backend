@@ -15,7 +15,7 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-console.log(process.env.NODE_ENV)
+
 fs
   .readdirSync(__dirname)
   .filter(file => {

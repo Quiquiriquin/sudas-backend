@@ -125,17 +125,33 @@ const SubjectController = {
     },
     update: async (req, res) => {
         try {
-            const { id, ...fields } = req.body;
-            const updatedVerb = await models.subject.update(
-                {
-                    ...fields,
-                },
-                {
-                    where: {
-                        id,
+            const { id, Coordinator, collaborators, ...fields } = req.body;
+            if (Coordinator) {
+                const subject = await models.subject.findByPk(id, {
+                    include: {
+                        all: true,
                     },
+                });
+                console.log(subject);
+                if (Coordinator) {
+                    await subject.addCoordinator(Coordinator);
                 }
-            );
+                if (collaborators) {
+                    await subject.addCollaborator(collaborators);
+                }
+                await subject.save();
+            } else {
+                const updatedVerb = await models.subject.update(
+                  {
+                      ...fields,
+                  },
+                  {
+                      where: {
+                          id,
+                      },
+                  }
+                );
+            }
             return res.status(200).send({ message: 'Subject updated' });
         } catch (e) {
             console.log(e);
@@ -143,6 +159,22 @@ const SubjectController = {
                 message: 'Error occurred',
                 errors: e.errors,
             });
+        }
+    },
+    collaboratorSubjects: async (req, res) => {
+        try {
+            const { collaborator } = req.params;
+            const user = await models.user.findByPk(collaborator);
+            if (user) {
+                const coordinatorSubjects = await user.getCoordinator();
+                const collaboratorSubjects = await user.getCollaborator();
+                const aux = coordinatorSubjects.concat(collaboratorSubjects);
+                return res.status(200).send(aux);
+            } else {
+                return res.status(200).send([]);
+            }
+        } catch (e) {
+            console.log(e);
         }
     },
     delete: async (req, res) => {
