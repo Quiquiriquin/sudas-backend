@@ -23,13 +23,19 @@ const AcademicPlanController = {
                     all: true,
                 }
             });
-            const resultPlans = plans.map(({ dataValues: { subjects, ...elem } }) => {
+            const resultPlans = []
+            for (const {dataValues: {subjects, ...elem}} of plans) {
                 let active = 0
                 let noAssigned = 0
                 let stopped = 0
                 let total = 0
+                const auxTeachers = new Set([]);
                 for(let i = 0; i < subjects.length; i++){
-                    console.log(subjects[i]);
+                    const subject = await models.subject.findByPk(subjects[i].id);
+                    const collaborators = await subject.getCollaborator();
+                    const coordinator = await subject.getCoordinator();
+                    collaborators.forEach(({ id }) => auxTeachers.add(id));
+                    coordinator.forEach(({ id }) => auxTeachers.add(id));
                     const { updatedAt } = subjects[i];
                     const lastUpdate = moment(new Date(updatedAt))
                     const diff = today.diff(lastUpdate, 'days');
@@ -38,20 +44,24 @@ const AcademicPlanController = {
                     } else {
                         active += 1;
                     }
-                    noAssigned += 1;
+                    if (collaborators.length === 0 && coordinator.length === 0) {
+                        noAssigned += 1;
+                    }
                     total += 1;
                 }
 
-                return {
+                resultPlans.push({
                     ...elem,
+                    teachers: auxTeachers.size,
                     subjects: {
                         active,
                         noAssigned,
                         stopped,
                         total
                     },
-                };
-            })
+                });
+            }
+
             return res.status(200).send(
                 resultPlans,
             );
