@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        show: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
     }, {
         timestamps: true,
         freezeTableName: true,
@@ -24,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         UnitCompetence.belongsTo(models.subject);
 
         UnitCompetence.hasOne(models.purpose, {
-            foreignKey: 'unitCompentenceId',
+            foreignKey: 'unitCompetenceId',
         });
     };
     return UnitCompetence;

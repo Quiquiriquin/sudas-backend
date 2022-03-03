@@ -5,7 +5,8 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/:id', UnitCompetenceController.get);
-router.patch('/', UnitCompetenceController.update);
+router.get('/subject/:subjectId', UnitCompetenceController.list);
+router.patch('/:id', UnitCompetenceController.update);
 router.post('/', UnitCompetenceController.create);
 router.delete('/:id', UnitCompetenceController.delete);
 

@@ -4,8 +4,15 @@ import moment from "moment";
 const PurposeController = {
   create: async (req, res) => {
     try {
-      const { body } = req;
+      const { body, subjectId, unitCompetenceId } = req;
       const newPurpose = await models.purpose.create(body);
+      // if (subjectId) {
+      //   newPurpose.setSubject(subjectId);
+      // }
+      // if (unitCompetenceId) {
+      //   newPurpose.setUnitCompetence(unitCompetenceId);
+      // }
+      // const purpose = await models.purpose.findByPk(newPurpose.id);
       return res.status(201).send(newPurpose);
     } catch (e) {
       console.log(e);
@@ -52,7 +59,8 @@ const PurposeController = {
           },
         }
       );
-      return res.status(200).send({ message: 'Verb updated' });
+      const getPurpose = await models.purpose.findByPk(id);
+      return res.status(200).send(getPurpose);
     } catch (e) {
       console.log(e);
       return res.status(400).send({

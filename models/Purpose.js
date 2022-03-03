@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     Purpose.belongsTo(models.subject, {
       foreignKey: 'subjectId',
     });
+    // Purpose.belongsTo(models.unitCompetence, {
+    //   foreignKey: 'unitCompetenceId',
+    // });
     Purpose.belongsTo(models.verb, {
       foreignKey: 'verbId',
     });

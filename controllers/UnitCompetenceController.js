@@ -16,17 +16,17 @@ const ContentController = {
     },
     list: async (req, res) => {
         try {
-            const { query } = req;
-            const filteredContents = await models.content.findAll({
+            const { subjectId } = req.params;
+            const units = await models.unitCompetence.findAll({
                 where: {
-                    subjectId: query.subjectId
+                    subjectId,
                 },
                 include: {
                     all: true,
                 },
             });
             return res.status(200).send(
-                filteredContents,
+                units,
             );
         } catch (e) {
             console.log(e);
@@ -55,7 +55,8 @@ const ContentController = {
     },
     update: async (req, res) => {
         try {
-            const { id, ...body } = req.body;
+            const { id } = req.params;
+            const { ...body } = req.body;
             const updatedContent = await models.unitCompetence.update(
                 {
                     ...body,
@@ -66,7 +67,8 @@ const ContentController = {
                     },
                 }
             );
-            return res.status(200).send({ message: 'Unit Competence updated' });
+            const unit = await models.unitCompetence.findByPk(id);
+            return res.status(200).send(unit);
         } catch (e) {
             console.log(e);
             return res.status(400).send({
