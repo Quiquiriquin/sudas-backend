@@ -6,9 +6,29 @@ const SubjectController = {
             const { body } = req;
             const subject = await models.subject.create({
                 ...body,
-                purpose: 'Evalúa conceptos y ténicas básicas de la microbiología en general con base en los lineamientos de las buenas prácticas de laboratorio'
             });
-            return res.status(201).send(subject);
+            await subject.createCompetence({
+                description: '',
+            });
+            await subject.createCompetence({
+                description: '',
+            });
+            await subject.createCompetence({
+                description: '',
+            });
+            await subject.createCompetence({
+                description: '',
+            });
+            await subject.createCompetence({
+                description: '',
+            });
+            const getSubject = await models.subject.findByPk(subject.id, {
+                include: {
+                    all: true,
+                },
+            });
+
+            return res.status(201).send(getSubject);
         } catch (e) {
             console.log(e);
             return res.status(400).send({
@@ -125,34 +145,29 @@ const SubjectController = {
     },
     update: async (req, res) => {
         try {
-            const { id, Coordinator, collaborators, ...fields } = req.body;
-            if (Coordinator) {
-                const subject = await models.subject.findByPk(id, {
-                    include: {
-                        all: true,
-                    },
-                });
-                console.log(subject);
-                if (Coordinator) {
-                    await subject.addCoordinator(Coordinator);
+            const { id, coordinator, collaborators, ...fields } = req.body;
+            await models.subject.update(
+              {
+                  ...fields,
+              },
+              {
+                  where: {
+                      id,
+                  },
+              }
+            );
+            if (coordinator || collaborators) {
+                const subjectCoordinator = await models.subject.findByPk(id);
+                if (coordinator) {
+                    await subjectCoordinator.addCoordinator(coordinator);
                 }
                 if (collaborators) {
-                    await subject.addCollaborator(collaborators);
+                    await subjectCoordinator.addCollaborator(collaborators);
                 }
-                await subject.save();
-            } else {
-                const updatedVerb = await models.subject.update(
-                  {
-                      ...fields,
-                  },
-                  {
-                      where: {
-                          id,
-                      },
-                  }
-                );
+                await subjectCoordinator.save();
             }
-            return res.status(200).send({ message: 'Subject updated' });
+            const subject = await models.subject.findByPk(id);
+            return res.status(200).send(subject);
         } catch (e) {
             console.log(e);
             return res.status(400).send({

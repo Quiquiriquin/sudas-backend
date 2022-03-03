@@ -79,6 +79,10 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'subjectId',
         });
 
+        Subject.hasMany(models.unitCompetence, {
+          as: 'competences',
+        });
+
         Subject.hasMany(models.bibliography, {
             foreignKey: 'subjectId',
         });

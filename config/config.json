@@ -1,12 +1,12 @@
 {
   "development": {
-    "username": "doadmin",
-    "password": "pY4HSE8hjjPWixRx",
-    "database": "defaultdb",
-    "host": "sudas-do-user-10058501-0.b.db.ondigitalocean.com",
+    "username": "root",
+    "password": "",
+    "database": "sudas",
+    "host": "localhost",
     "dialect": "mysql",
-    "port": 25060,
-    "ssl": true
+    "port": 3306,
+    "ssl": false
   },
   "test": {
     "username": "doadmin",

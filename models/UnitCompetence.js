@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'contentId',
         });
 
+        UnitCompetence.belongsTo(models.subject);
+
         UnitCompetence.hasOne(models.purpose, {
             foreignKey: 'unitCompentenceId',
         });
