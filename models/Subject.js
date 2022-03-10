@@ -114,6 +114,9 @@ module.exports = (sequelize, DataTypes) => {
             through: 'CollaboratorSubject',
             as: 'Collaborator',
         });
+        Subject.hasOne(models.teacherProfile, {
+            foreignKey: 'subjectId',
+        });
     };
     return Subject;
 };

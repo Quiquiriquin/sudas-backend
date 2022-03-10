@@ -162,6 +162,16 @@ const UserController = {
       return res.status(400).send(e);
     }
   },
+  listActiveTeachers: async (req, res) => {
+    try {
+      const users = await models.user.findAll();
+      console.log(users);
+      return res.status(200).send(users);
+    } catch (e) {
+      console.log(e);
+      return res.status(400).send(e);
+    }
+  },
 };
 
 export default UserController;

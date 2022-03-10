@@ -8,7 +8,8 @@ router.post('/users-dashboard', UserController.createAdmin);
 router.post('/', UserController.create);
 router.post('/login', UserController.login);
 router.get('/', UserController.list)
-router.get('/:id', UserController.get)
-router.patch('/:id', UserController.update)
+router.get('/available-users', UserController.listActiveTeachers);
+router.get('/:id', UserController.get);
+router.patch('/:id', UserController.update);
 
 module.exports = router;

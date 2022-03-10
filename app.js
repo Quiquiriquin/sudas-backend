@@ -22,6 +22,7 @@ const contentRouter = require('./routes/contents');
 const unitRouter = require('./routes/unitsCompetence');
 const objectives = require('./routes/objectives');
 const purposes = require('./routes/purposes');
+const teachersProfiles = require('./routes/teacherProfiles');
 const app = express();
 
 db.sequelize.sync({ alter: true });
@@ -43,6 +44,7 @@ app.use('/api/v1/objective', objectives);
 app.use('/api/v1/content', contentRouter);
 app.use('/api/v1/unit-competence', unitRouter);
 app.use('/api/v1/purpose', purposes);
+app.use('/api/v1/teacher-profile', teachersProfiles);
 
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
