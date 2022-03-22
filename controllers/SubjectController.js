@@ -158,6 +158,7 @@ const SubjectController = {
             );
             if (coordinator || collaborators) {
                 const subjectCoordinator = await models.subject.findByPk(id);
+                console.log(id);
                 if (coordinator) {
                     await subjectCoordinator.addCoordinator(coordinator);
                 }

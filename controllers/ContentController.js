@@ -43,15 +43,17 @@ const ContentController = {
     },
     get: async (req, res) => {
         try {
-            const { id } = req.params;
+            const { subjectId } = req.query;
+            console.log(subjectId);
             const content = await models.content.findOne({
                 where: {
-                    id,
+                    subjectId,
                 },
                 include: {
                     all: true,
                 }
             });
+            console.log(content);
             return res.status(200).send(content);
         } catch (e) {
             console.log(e);
