@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
+        topics: {
+            type: DataTypes.JSON,
+            allowNull: true,
+        },
     }, {
         timestamps: true,
         freezeTableName: true,
@@ -21,9 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     UnitCompetence.associate = function(models) {
         // associations can be defined here
-        UnitCompetence.belongsTo(models.content, {
-            foreignKey: 'contentId',
-        });
 
         UnitCompetence.belongsTo(models.subject);
 

@@ -7,21 +7,6 @@ const SubjectController = {
             const subject = await models.subject.create({
                 ...body,
             });
-            await subject.createCompetence({
-                description: '',
-            });
-            await subject.createCompetence({
-                description: '',
-            });
-            await subject.createCompetence({
-                description: '',
-            });
-            await subject.createCompetence({
-                description: '',
-            });
-            await subject.createCompetence({
-                description: '',
-            });
             const getSubject = await models.subject.findByPk(subject.id, {
                 include: {
                     all: true,

@@ -56,10 +56,13 @@ const ContentController = {
     update: async (req, res) => {
         try {
             const { id } = req.params;
-            const { ...body } = req.body;
+            const { topics, ...body } = req.body;
             const updatedContent = await models.unitCompetence.update(
                 {
                     ...body,
+                    topics: {
+                        topics,
+                    },
                 },
                 {
                     where: {
