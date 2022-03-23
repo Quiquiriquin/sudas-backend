@@ -25,9 +25,16 @@ const ContentController = {
                     all: true,
                 },
             });
-            return res.status(200).send(
-                units,
-            );
+            const fixed = units.map(({ ...unit }) => {
+                console.log(unit);
+
+                return {
+                    ...unit.dataValues,
+                    topics: unit.dataValues.topics ? unit.dataValues.topics.topics : null,
+                };
+            });
+            console.log(fixed);
+            return res.status(200).send(fixed);
         } catch (e) {
             console.log(e);
             return res.status(400).send({
