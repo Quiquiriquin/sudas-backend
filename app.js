@@ -25,7 +25,7 @@ const purposes = require('./routes/purposes');
 const teachersProfiles = require('./routes/teacherProfiles');
 const app = express();
 
-db.sequelize.sync();
+db.sequelize.sync({ alter: true });
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

@@ -67,9 +67,11 @@ const ContentController = {
             const updatedContent = await models.unitCompetence.update(
                 {
                     ...body,
-                    topics: {
-                        topics,
-                    },
+                    ...(topics ? {
+                        topics: {
+                            topics,
+                        }
+                    } : {}),
                 },
                 {
                     where: {
