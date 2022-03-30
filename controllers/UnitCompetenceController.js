@@ -31,6 +31,7 @@ const ContentController = {
                 return {
                     ...unit.dataValues,
                     topics: unit.dataValues.topics ? unit.dataValues.topics.topics : null,
+                    practices: unit.dataValues.practices ? unit.dataValues.practices.practices : null,
                 };
             });
             console.log(fixed);
@@ -63,7 +64,7 @@ const ContentController = {
     update: async (req, res) => {
         try {
             const { id } = req.params;
-            const { topics, methodId, ...body } = req.body;
+            const { topics, practices, methodId, ...body } = req.body;
             const updatedContent = await models.unitCompetence.update(
                 {
                     ...body,
@@ -71,6 +72,11 @@ const ContentController = {
                         topics: {
                             topics,
                         }
+                    } : {}),
+                    ...(practices ? {
+                        practices: {
+                            practices,
+                        },
                     } : {}),
                 },
                 {

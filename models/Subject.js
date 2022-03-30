@@ -65,6 +65,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(1000),
             allowNull: true,
         },
+        samePlacePractices: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+            defaultValue: true,
+        },
+        practicePlace: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'Escuela',
+        },
     }, {
         timestamps: true,
         freezeTableName: true,

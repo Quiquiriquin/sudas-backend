@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.JSON,
             allowNull: true,
         },
+        practices: {
+            type: DataTypes.JSON,
+            allowNull: true,
+        },
     }, {
         timestamps: true,
         freezeTableName: true,
