@@ -130,7 +130,7 @@ const SubjectController = {
     },
     update: async (req, res) => {
         try {
-            const { id, coordinator, collaborators, ...fields } = req.body;
+            const { id, coordinator, collaborators, strategyId, ...fields } = req.body;
             await models.subject.update(
               {
                   ...fields,
@@ -152,7 +152,18 @@ const SubjectController = {
                 }
                 await subjectCoordinator.save();
             }
-            const subject = await models.subject.findByPk(id);
+            if (strategyId) {
+                const subjectStrategy = await models.subject.findByPk(id);
+                await subjectStrategy.setStrategy(strategyId);
+            }
+            const subject = await models.subject.findByPk(id, {
+                include: [
+                    {
+                        model: models.strategy,
+                        as: 'strategy',
+                    }
+                ]
+            });
             return res.status(200).send(subject);
         } catch (e) {
             console.log(e);

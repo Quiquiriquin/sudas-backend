@@ -63,7 +63,7 @@ const ContentController = {
     update: async (req, res) => {
         try {
             const { id } = req.params;
-            const { topics, ...body } = req.body;
+            const { topics, strategyId, ...body } = req.body;
             const updatedContent = await models.unitCompetence.update(
                 {
                     ...body,
@@ -79,7 +79,19 @@ const ContentController = {
                     },
                 }
             );
-            const unit = await models.unitCompetence.findByPk(id);
+            let unit = await models.unitCompetence.findByPk(id);
+            if (strategyId) {
+                await unit.setStrategy(strategyId);
+                unit = await models.unitCompetence.findByPk(id, {
+                    include: [
+                        {
+                            model: models.strategy,
+                            as: 'strategy',
+                            attributes: ['id', 'label', 'description']
+                        }
+                    ]
+                });
+            }
             return res.status(200).send(unit);
         } catch (e) {
             console.log(e);

@@ -100,6 +100,11 @@ module.exports = (sequelize, DataTypes) => {
             as: 'Coordinator',
         });
 
+        Subject.hasOne(models.strategy, {
+            foreignKey: 'subjectId',
+            as: 'strategy',
+        });
+
         // Subject.belongsTo(models.user, {
         //     foreignKey: 'coordinatorId',
         //     as: 'Coordinator',

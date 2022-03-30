@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
         UnitCompetence.hasOne(models.purpose, {
             foreignKey: 'unitCompetenceId',
         });
+
+        UnitCompetence.hasOne(models.strategy, {
+            foreignKey: 'unitCompetenceId',
+            as: 'strategy'
+        });
     };
     return UnitCompetence;
 };

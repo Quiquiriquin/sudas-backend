@@ -22,6 +22,8 @@ const contentRouter = require('./routes/contents');
 const unitRouter = require('./routes/unitsCompetence');
 const objectives = require('./routes/objectives');
 const purposes = require('./routes/purposes');
+const strategies = require('./routes/strategies');
+const methods = require('./routes/methods');
 const teachersProfiles = require('./routes/teacherProfiles');
 const app = express();
 
@@ -45,6 +47,8 @@ app.use('/api/v1/content', contentRouter);
 app.use('/api/v1/unit-competence', unitRouter);
 app.use('/api/v1/purpose', purposes);
 app.use('/api/v1/teacher-profile', teachersProfiles);
+app.use('/api/v1/strategies', strategies);
+app.use('/api/v1/methods',  methods);
 
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
