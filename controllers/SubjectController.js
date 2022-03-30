@@ -130,7 +130,9 @@ const SubjectController = {
     },
     update: async (req, res) => {
         try {
-            const { id, coordinator, collaborators, strategyId, ...fields } = req.body;
+            const { id: paramsId } = req.params;
+            const { id: bodyId, coordinator, collaborators, strategyId, ...fields } = req.body;
+            let id = paramsId || bodyId;
             await models.subject.update(
               {
                   ...fields,
@@ -154,6 +156,7 @@ const SubjectController = {
             }
             if (strategyId) {
                 const subjectStrategy = await models.subject.findByPk(id);
+                console.log(subjectStrategy);
                 await subjectStrategy.setStrategy(strategyId);
             }
             const subject = await models.subject.findByPk(id, {

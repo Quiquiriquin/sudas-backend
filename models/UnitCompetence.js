@@ -32,9 +32,9 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'unitCompetenceId',
         });
 
-        UnitCompetence.hasOne(models.strategy, {
+        UnitCompetence.hasOne(models.method, {
             foreignKey: 'unitCompetenceId',
-            as: 'strategy'
+            as: 'method'
         });
     };
     return UnitCompetence;
