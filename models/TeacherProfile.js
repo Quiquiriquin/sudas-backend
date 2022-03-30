@@ -18,6 +18,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    skills: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    attitudes: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {
     timestamps: true,
     freezeTableName: true,

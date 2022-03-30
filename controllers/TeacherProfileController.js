@@ -21,7 +21,11 @@ const TeacherProfileController = {
           subjectId,
         },
       });
-      return res.status(201).send(reqTeacherProfile);
+      if (reqTeacherProfile) {
+        return res.status(201).send(reqTeacherProfile);
+      } else {
+        return res.status(204).send(reqTeacherProfile);
+      }
     } catch (e) {
       return res.status(400).send(e);
     }
@@ -38,6 +42,7 @@ const TeacherProfileController = {
       const reqTeacherProfile = await models.teacherProfile.findByPk(id);
       return res.status(200).send(reqTeacherProfile);
     } catch (e) {
+      console.log(e);
       return res.status(400).send(e);
     }
   },
