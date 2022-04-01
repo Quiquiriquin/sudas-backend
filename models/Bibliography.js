@@ -13,7 +13,16 @@ module.exports = (sequelize, DataTypes) => {
         year: {
             allowNull: false,
             type: DataTypes.STRING
-        }
+        },
+        type: {
+            type: DataTypes.ENUM,
+            values: ['BASIC', 'COMPLEMENTARY', 'CYBER', 'DIGITAL'],
+            defaultValue: 'BASIC',
+        },
+        library: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     }, {
         timestamps: true,
         freezeTableName: true,
@@ -21,6 +30,15 @@ module.exports = (sequelize, DataTypes) => {
     });
     Bibliography.associate = function(models) {
         // associations can be defined here
+        Bibliography.hasOne(models.editorial, {
+            foreignKey: 'bibliographyId',
+            as: 'editorial',
+        });
+
+        Bibliography.hasOne(models.author, {
+            foreignKey: 'bibliographyId',
+            as: 'author',
+        });
     };
     return Bibliography;
 };

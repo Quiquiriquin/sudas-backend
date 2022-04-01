@@ -24,6 +24,9 @@ const objectives = require('./routes/objectives');
 const purposes = require('./routes/purposes');
 const strategies = require('./routes/strategies');
 const methods = require('./routes/methods');
+const bibliographies = require('./routes/bibliographies');
+const authors = require('./routes/authors');
+const editorials = require('./routes/editorials');
 const teachersProfiles = require('./routes/teacherProfiles');
 const app = express();
 
@@ -49,6 +52,9 @@ app.use('/api/v1/purpose', purposes);
 app.use('/api/v1/teacher-profile', teachersProfiles);
 app.use('/api/v1/strategies', strategies);
 app.use('/api/v1/methods',  methods);
+app.use('/api/v1/bibliography',  bibliographies);
+app.use('/api/v1/editorial',  editorials);
+app.use('/api/v1/author',  authors);
 
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
