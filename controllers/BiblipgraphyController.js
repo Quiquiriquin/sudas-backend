@@ -1,4 +1,5 @@
 import models from '../models/index';
+import {Op} from 'sequelize';
 
 const BibliographyController = {
   create: async (req, res) => {
@@ -16,9 +17,10 @@ const BibliographyController = {
           console.log(author);
           const findAuthor = await models.author.findOne({
             where: {
-              name: author,
+              [Op.or]: [{ name: author }, { id: author }]
             },
           });
+          console.log(findAuthor);
           if (findAuthor) {
             await newBibliography.setAuthor(findAuthor.id);
           } else {
@@ -30,9 +32,10 @@ const BibliographyController = {
         if (editorial) {
           const findEditorial = await models.editorial.findOne({
             where: {
-              name: editorial,
+              [Op.or]: [{ name: editorial }, { id: editorial }],
             },
           });
+          console.log(findEditorial);
           if (findEditorial) {
             await newBibliography.setEditorial(findEditorial.id);
           } else {
