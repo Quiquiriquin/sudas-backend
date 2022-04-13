@@ -56,7 +56,7 @@ app.use('/api/v1/bibliography',  bibliographies);
 app.use('/api/v1/editorial',  editorials);
 app.use('/api/v1/author',  authors);
 
-const port = normalizePort(process.env.PORT || '4000');
+const port = normalizePort(process.env.PORT || '4040');
 app.set('port', port);
 
 const server = http.createServer(app);
