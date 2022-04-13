@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "babel ./ -d dist --ignore node_modules",
-    "start": "nodemon --exec babel-node app.js",
+    "start": "node --exec babel-node app.js",
     "test": "SET NODE_ENV=test && nodemon --exec babel-node app.js --env=test"
   },
   "dependencies": {
