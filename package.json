@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "build": "babel ./ -d dist --ignore node_modules",
-    "start": "node --exec babel-node app.js",
-    "test": "SET NODE_ENV=test && nodemon --exec babel-node app.js --env=test"
+    "start-dev": "nodemon --exec babel-node app.js",
+    "test": "SET NODE_ENV=test && nodemon --exec babel-node app.js --env=test",
+    "start": "node app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
