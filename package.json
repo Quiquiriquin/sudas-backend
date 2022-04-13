@@ -9,6 +9,7 @@
     "start": "NODE_ENV=test node dist/app.js"
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
