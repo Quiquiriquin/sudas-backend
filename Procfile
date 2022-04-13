@@ -1,1 +1,1 @@
-web: cp -r config . && NODE_ENV=test node app.js 
+web: NODE_ENV=test node app.js 
