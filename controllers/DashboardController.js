@@ -10,9 +10,12 @@ const DashboardController = {
                     status: 'ACTIVE',
                 },
             });
-            console.log(users);
+            const subjects = await models.subject.count();
+            const verbs = await models.verb.count();
             return res.status(201).send({
                 users,
+                subjects,
+                verbs,
             });
         } catch (e) {
             console.log(e);
