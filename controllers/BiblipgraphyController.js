@@ -40,7 +40,7 @@ const BibliographyController = {
             await newBibliography.setEditorial(findEditorial.id);
           } else {
             await newBibliography.createEditorial({
-              name: author,
+              name: editorial,
             });
           }
         }

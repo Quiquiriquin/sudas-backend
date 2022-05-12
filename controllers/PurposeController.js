@@ -44,23 +44,29 @@ const PurposeController = {
     try {
       const { id } = req.params;
       const { object, quality, verbId, connectorId, subjectId, unitCompetenceId } = req.body;
-      const updatedPurpose = await models.purpose.update(
-        {
-          ...(object && { object }),
-          ...(quality && { quality }),
-          ...(verbId && { verbId }),
-          ...(connectorId && { connectorId }),
-          ...(subjectId && { subjectId }),
-          ...(unitCompetenceId && { unitCompetenceId }),
-        },
-        {
-          where: {
-            id,
-          },
-        }
-      );
-      const getPurpose = await models.purpose.findByPk(id);
-      return res.status(200).send(getPurpose);
+      const hasPurpose = await models.purpose.findByPk(id);
+      if (hasPurpose) {
+        const updatedPurpose = await models.purpose.update(
+            {
+              ...(object && { object }),
+              ...(quality && { quality }),
+              ...(verbId && { verbId }),
+              ...(connectorId && { connectorId }),
+              ...(subjectId && { subjectId }),
+              ...(unitCompetenceId && { unitCompetenceId }),
+            },
+            {
+              where: {
+                id,
+              },
+            }
+        );
+        const getPurpose = await models.purpose.findByPk(id);
+        return res.status(200).send(getPurpose);
+      } else {
+        console.log('REQUE: ', req.body);
+        PurposeController.create(req, res);
+      }
     } catch (e) {
       console.log(e);
       return res.status(400).send({

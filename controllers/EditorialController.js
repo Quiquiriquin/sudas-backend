@@ -4,7 +4,7 @@ const EditorialController = {
   create: async (req, res) => {
     try {
       const { description } = req.body;
-      const newConnector = await models.connector.create({
+      const newConnector = await models.editorial.create({
         description
       });
       return res.status(201).send(newConnector);
@@ -19,6 +19,7 @@ const EditorialController = {
   list: async (req, res) => {
     try {
       const editorials = await models.editorial.findAll();
+      console.log(editorials);
       return res.status(200).send(
         editorials,
       );
@@ -32,7 +33,7 @@ const EditorialController = {
   get: async (req, res) => {
     try {
       const { id } = req.params;
-      const connector = await models.connector.findOne({
+      const connector = await models.editorial.findOne({
         where: {
           id,
         },

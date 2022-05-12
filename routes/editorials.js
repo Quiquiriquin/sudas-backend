@@ -1,4 +1,4 @@
-import EditorialController from '../controllers/ConnectorController';
+import EditorialController from '../controllers/EditorialController';
 import express from 'express';
 const router = express.Router();
 
