@@ -10,9 +10,9 @@
   },
   "test": {
     "username": "doadmin",
-    "password": "pY4HSE8hjjPWixRx",
+    "password": "AVNS_FpUIdyro4dQx_2g",
     "database": "defaultdb",
-    "host": "sudas-do-user-10058501-0.b.db.ondigitalocean.com",
+    "host": "sudas-testing-2-do-user-11557131-0.b.db.ondigitalocean.com",
     "dialect": "mysql",
     "port": 25060,
     "ssl": true
