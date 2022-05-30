@@ -40,6 +40,9 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'unitCompetenceId',
             as: 'method'
         });
+        UnitCompetence.hasMany(models.activity, {
+            foreignKey: 'unitCompetenceId',
+        });
     };
     return UnitCompetence;
 };

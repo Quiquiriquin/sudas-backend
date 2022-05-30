@@ -29,9 +29,10 @@ const bibliographies = require('./routes/bibliographies');
 const authors = require('./routes/authors');
 const editorials = require('./routes/editorials');
 const teachersProfiles = require('./routes/teacherProfiles');
+const activities = require('./routes/activities');
 const app = express();
 
-db.sequelize.sync();
+db.sequelize.sync({ alter: true });
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -56,6 +57,7 @@ app.use('/api/v1/methods',  methods);
 app.use('/api/v1/bibliography',  bibliographies);
 app.use('/api/v1/editorial',  editorials);
 app.use('/api/v1/author',  authors);
+app.use('/api/v1/activities',  activities);
 
 const port = normalizePort(process.env.PORT || '4040');
 app.set('port', port);

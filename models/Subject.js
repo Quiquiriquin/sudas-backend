@@ -132,6 +132,9 @@ module.exports = (sequelize, DataTypes) => {
         Subject.hasOne(models.teacherProfile, {
             foreignKey: 'subjectId',
         });
+        Subject.hasMany(models.activity, {
+           foreignKey: 'subjectId'
+        });
     };
     return Subject;
 };
