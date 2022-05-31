@@ -73,33 +73,38 @@ const SubjectController = {
     },
     getRelatedSubjects: async (req, res) => {
         try {
-            const { semester } = req.params;
+            const { semester, academicPlanId } = req.params;
             const base = parseInt(semester);
             const [befPrev, prev] = base >= 3 ? [base - 2, base - 1] : [1, 1];
             const [next, afNext] = [base + 1, base + 2];
-            let same = await models.subject.findAll({
+            let same = await models.academicPlanSubject.findAll({
                 where: {
                     semester,
+                    academicPlanId,
                 },
             });
-            let beforePrevSem = await models.subject.findAll({
+            let beforePrevSem = await models.academicPlanSubject.findAll({
                 where: {
                     semester: befPrev,
+                    academicPlanId,
                 },
             });
-            let prevSem = await models.subject.findAll({
+            let prevSem = await models.academicPlanSubject.findAll({
                 where: {
                     semester: prev,
+                    academicPlanId,
                 },
             });
-            let nextSem = await models.subject.findAll({
+            let nextSem = await models.academicPlanSubject.findAll({
                 where: {
                     semester: next,
+                    academicPlanId,
                 },
             });
-            let afNextSem = await models.subject.findAll({
+            let afNextSem = await models.academicPlanSubject.findAll({
                 where: {
                     semester: afNext,
+                    academicPlanId,
                 },
             });
             return res.status(200).send({
@@ -131,7 +136,7 @@ const SubjectController = {
     update: async (req, res) => {
         try {
             const { id: paramsId } = req.params;
-            const { id: bodyId, coordinator, collaborators, strategyId, ...fields } = req.body;
+            const { id: bodyId, coordinator, collaborators, strategyId, relatedUnits, ...fields } = req.body;
             let id = paramsId || bodyId;
             await models.subject.update(
               {
@@ -167,7 +172,39 @@ const SubjectController = {
                     }
                 ]
             });
-            return res.status(200).send(subject);
+            if (relatedUnits) {
+                console.log(relatedUnits);
+                if (relatedUnits.prev) {
+                    await subject.setPrev(relatedUnits.prev);
+                }
+                if (relatedUnits.same) {
+                    await subject.setSame(relatedUnits.same);
+                }
+                if (relatedUnits.next) {
+                    await subject.setNext(relatedUnits.next);
+                }
+            }
+            const reqSubject = await models.subject.findByPk(id, {
+                include: [
+                    {
+                        model: models.strategy,
+                        as: 'strategy',
+                    },
+                    {
+                        model: models.academicPlanSubject,
+                        as: 'prev',
+                    },
+                    {
+                        model: models.academicPlanSubject,
+                        as: 'same',
+                    },
+                    {
+                        model: models.academicPlanSubject,
+                        as: 'next',
+                    },
+                ],
+            });
+            return res.status(200).send(reqSubject);
         } catch (e) {
             console.log(e);
             return res.status(400).send({

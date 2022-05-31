@@ -48,7 +48,11 @@ module.exports = (sequelize, DataTypes) => {
 
         AcademicPlan.hasMany(models.subject, {
             foreignKey: 'academicPlanId',
-        })
+        });
+
+        AcademicPlan.hasMany(models.academicPlanSubject, {
+            foreignKey: 'academicPlanId',
+        });
     };
     return AcademicPlan;
 };

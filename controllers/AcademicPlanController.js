@@ -4,9 +4,26 @@ import moment from "moment";
 const AcademicPlanController = {
     create: async (req, res) => {
         try {
-            const { body } = req;
+            const { body: { subjects, ...body } } = req;
             const newAcademicPlan = await models.academicPlan.create(body);
-            return res.status(201).send(newAcademicPlan);
+            for (const {name, semester} of subjects) {
+                try {
+                    await newAcademicPlan.createAcademicPlanSubject({
+                        name,
+                        semester,
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+            const requestedAcademicPlan = await models.academicPlan.findByPk(newAcademicPlan.id, {
+                include: [
+                    {
+                        model: models.academicPlanSubject,
+                    },
+                ],
+            });
+            return res.status(201).send(requestedAcademicPlan);
         } catch (e) {
             console.log(e);
             return res.status(400).send({

@@ -32,7 +32,7 @@ const teachersProfiles = require('./routes/teacherProfiles');
 const activities = require('./routes/activities');
 const app = express();
 
-db.sequelize.sync({ alter: true });
+db.sequelize.sync();
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

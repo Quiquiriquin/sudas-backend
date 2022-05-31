@@ -135,6 +135,18 @@ module.exports = (sequelize, DataTypes) => {
         Subject.hasMany(models.activity, {
            foreignKey: 'subjectId'
         });
+        Subject.belongsToMany(models.academicPlanSubject, {
+            through: 'SameSubject',
+            as: 'same'
+        });
+        Subject.belongsToMany(models.academicPlanSubject, {
+            through: 'NextSubject',
+            as: 'next'
+        });
+        Subject.belongsToMany(models.academicPlanSubject, {
+            through: 'PrevSubject',
+            as: 'prev'
+        });
     };
     return Subject;
 };
