@@ -77,6 +77,7 @@ const SubjectController = {
             const base = parseInt(semester);
             const [befPrev, prev] = base >= 3 ? [base - 2, base - 1] : [1, 1];
             const [next, afNext] = [base + 1, base + 2];
+            console.log(semester);
             let same = await models.academicPlanSubject.findAll({
                 where: {
                     semester,
@@ -107,10 +108,34 @@ const SubjectController = {
                     academicPlanId,
                 },
             });
+
+            const finalPrevIds = new Set([]);
+            const finalPrev = [];
+            beforePrevSem.forEach(({ id, dataValues }) => {
+                if (!finalPrevIds.has(id)) {
+                    finalPrev.push({
+                        id,
+                        ...dataValues,
+                    });
+                    finalPrevIds.add(id);
+                }
+            });
+            const finalNextIds = new Set([]);
+            const finalNext = [];
+            nextSem.forEach(({ id, dataValues }) => {
+                if (!finalNextIds.has(id)) {
+                    finalNext.push({
+                        id,
+                        ...dataValues,
+                    });
+                    finalNextIds.add(id);
+                }
+            });
+
             return res.status(200).send({
                 same,
-                prev: [...beforePrevSem, ...prevSem],
-                next: [...nextSem, ...afNextSem],
+                prev: finalPrev,
+                next: finalNext,
               });
         } catch (e) {
             return res.status(400).send(e);
