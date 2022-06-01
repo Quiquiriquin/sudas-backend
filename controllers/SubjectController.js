@@ -120,9 +120,27 @@ const SubjectController = {
                     finalPrevIds.add(id);
                 }
             });
+            prevSem.forEach(({ id, dataValues }) => {
+                if (!finalPrevIds.has(id)) {
+                    finalPrev.push({
+                        id,
+                        ...dataValues,
+                    });
+                    finalPrevIds.add(id);
+                }
+            });
             const finalNextIds = new Set([]);
             const finalNext = [];
             nextSem.forEach(({ id, dataValues }) => {
+                if (!finalNextIds.has(id)) {
+                    finalNext.push({
+                        id,
+                        ...dataValues,
+                    });
+                    finalNextIds.add(id);
+                }
+            });
+            afNextSem.forEach(({ id, dataValues }) => {
                 if (!finalNextIds.has(id)) {
                     finalNext.push({
                         id,
