@@ -92,8 +92,8 @@ const ActivityController = {
             const { id, description, title } = req.body;
             await models.activity.update(
                 {
-                    description,
-                    title,
+                    ...(description ? { description } : {}),
+                    ...(title ? { title } : {}),
                 },
                 {
                     where: {
