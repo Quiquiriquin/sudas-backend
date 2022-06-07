@@ -45,10 +45,10 @@ const AuthorController = {
   },
   update: async (req, res) => {
     try {
-      const { id, description } = req.body;
-      await models.connector.update(
+      const { id, name } = req.body;
+      await models.author.update(
         {
-          description,
+          name,
         },
         {
           where: {
@@ -56,7 +56,7 @@ const AuthorController = {
           },
         }
       );
-      return res.status(200).send({message: 'Verb updated'});
+      return res.status(200).send({message: 'Author updated'});
     } catch (e) {
       console.log(e);
       return res.status(400).send({
