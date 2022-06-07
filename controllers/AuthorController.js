@@ -68,7 +68,7 @@ const AuthorController = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      await models.connector.destroy({
+      await models.author.destroy({
         where: {
           id,
         },
