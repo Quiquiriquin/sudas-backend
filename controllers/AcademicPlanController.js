@@ -101,7 +101,6 @@ const AcademicPlanController = {
                     all: true,
                 }
             });
-            console.log(academicPlan);
             return res.status(200).send(academicPlan);
         } catch (e) {
             console.log(e);
@@ -122,9 +121,12 @@ const AcademicPlanController = {
                                 semester,
                             });
                         } else {
-                            const subjectPlan = await models.acamicPlanSubject.findByPk(subId);
+                            const subjectPlan = await models.academicPlanSubject.findByPk(subId);
+                            console.log(' ---------- Existe ---------- ');
+                            console.log(`-${subId} --- ${subjectPlan.name} --- ${subjectPlan.semester}`);
                             subjectPlan.name = name;
                             subjectPlan.semester = semester;
+                            console.log(`-${subId} --- ${subjectPlan.name} --- ${subjectPlan.semester}`);
                             await subjectPlan.save();
                         }
                     } catch (e) {
