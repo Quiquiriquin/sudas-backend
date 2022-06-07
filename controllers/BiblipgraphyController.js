@@ -135,18 +135,16 @@ const BibliographyController = {
   },
   update: async (req, res) => {
     try {
-      const { id, description } = req.body;
-      await models.connector.update(
-        {
-          description,
-        },
+      const { id, ...body } = req.body;
+      await models.bibliography.update(
+        body,
         {
           where: {
             id,
           },
         }
       );
-      return res.status(200).send({message: 'Verb updated'});
+      return res.status(200).send({message: 'Biblio updated'});
     } catch (e) {
       console.log(e);
       return res.status(400).send({
