@@ -110,18 +110,42 @@ const AcademicPlanController = {
     },
     update: async (req, res) => {
         try {
-            const { id, description } = req.body;
-            const updatedVerb = await models.verb.update(
-                {
-                    description,
-                },
-                {
-                    where: {
-                        id,
-                    },
+            const { id } = req.params;
+            const { body: { subjects, ...body } } = req;
+            const academicPlan = await models.academicPlan.findByPk(id);
+            if (academicPlan) {
+                for (const {name, semester, id: subId} of subjects) {
+                    try {
+                        if (!subId) {
+                            await academicPlan.createAcademicPlanSubject({
+                                name,
+                                semester,
+                            });
+                        } else {
+                            const subjectPlan = await models.acamicPlanSubject.findByPk(subId);
+                            subjectPlan.name = name;
+                            subjectPlan.semester = semester;
+                            await subjectPlan.save();
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    }
                 }
-            );
-            return res.status(200).send({ message: 'Verb updated' });
+                for (const key in body) {
+                    academicPlan[key] = body[key];
+                }
+                await academicPlan.save();
+                const academicPlanUpdated = await models.academicPlan.findByPk(
+                    id,
+                    {
+                        include: {
+                            all: true,
+                        }
+                    });
+                return res.status(200).send(academicPlanUpdated);
+            } else {
+                return res.status(400).send('No founded');
+            }
         } catch (e) {
             console.log(e);
             return res.status(400).send({
