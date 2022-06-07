@@ -47,7 +47,7 @@ const EditorialController = {
   update: async (req, res) => {
     try {
       const { id, description } = req.body;
-      await models.connector.update(
+      await models.editorial.update(
         {
           description,
         },
@@ -57,7 +57,7 @@ const EditorialController = {
           },
         }
       );
-      return res.status(200).send({message: 'Verb updated'});
+      return res.status(200).send({message: 'Editorial updated'});
     } catch (e) {
       console.log(e);
       return res.status(400).send({
