@@ -75,7 +75,7 @@ const SubjectController = {
         try {
             const { semester, academicPlanId } = req.params;
             const base = parseInt(semester);
-            const [befPrev, prev] = base >= 3 ? [base - 2, base - 1] : [1, 1];
+            const [befPrev, prev] = base >= 3 ? [base - 2, base - 1] : base === 2 ? [0, 1] : [0,0];
             const [next, afNext] = [base + 1, base + 2];
             console.log(semester);
             let same = await models.academicPlanSubject.findAll({
@@ -84,13 +84,13 @@ const SubjectController = {
                     academicPlanId,
                 },
             });
-            let beforePrevSem = await models.academicPlanSubject.findAll({
+            let beforePrevSem = befPrev === 0 ? [] : await models.academicPlanSubject.findAll({
                 where: {
                     semester: befPrev,
                     academicPlanId,
                 },
             });
-            let prevSem = await models.academicPlanSubject.findAll({
+            let prevSem = prev === 0 ? [] : await models.academicPlanSubject.findAll({
                 where: {
                     semester: prev,
                     academicPlanId,
