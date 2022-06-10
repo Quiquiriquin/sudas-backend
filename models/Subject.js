@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         satca: {
             type: DataTypes.FLOAT,
-            allowNull: false,
+            allowNull: true,
         },
         totalHours: {
             type: DataTypes.FLOAT,

@@ -4,6 +4,7 @@ const SubjectController = {
     create: async (req, res) => {
         try {
             const { body } = req;
+            console.log(body);
             const subject = await models.subject.create({
                 ...body,
             });

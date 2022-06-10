@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       allowNull: false,
-      type: DataTypes.STRING(1000),
+      type: DataTypes.TEXT('medium'),
     }
   }, {
     timestamps: true,

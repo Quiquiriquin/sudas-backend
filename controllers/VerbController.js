@@ -45,10 +45,11 @@ const VerbController = {
   },
   update: async (req, res) => {
     try {
-      const { id, description } = req.body;
+      const { id, description, level } = req.body;
       const updatedVerb = await models.verb.update(
         {
           description,
+          level,
         },
         {
           where: {
