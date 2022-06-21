@@ -56,6 +56,7 @@ const UserController = {
           name,
           firstSurname,
           secondSurname,
+          status: 'ACTIVE',
         });
         await user.save();
         delete user.password;

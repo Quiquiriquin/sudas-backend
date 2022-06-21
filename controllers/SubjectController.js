@@ -58,10 +58,7 @@ const SubjectController = {
     get: async (req, res) => {
         try {
             const { id } = req.params;
-            const subject = await models.subject.findOne({
-                where: {
-                    id,
-                },
+            const subject = await models.subject.findByPk(id, {
                 include: {
                     all: true,
                 }
@@ -288,6 +285,90 @@ const SubjectController = {
                 message: 'Error occurred',
                 errors: e.errors,
             });
+        }
+    },
+    getById: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const subject = await models.subject.findByPk(id, {
+                include: {
+                    all: true,
+                }
+            });
+            const { purpose } = subject;
+            const activities = [];
+            const finalSubject = {
+                relatedSubjects: {
+                    prev: subject.prev.map(({ dataValues }) => dataValues),
+                    same: subject.same.map(({ dataValues }) => dataValues),
+                    next: subject.next.map(({ dataValues }) => dataValues),
+                },
+                bibliographies: subject.bibliographies.map(({ dataValues }) => dataValues),
+                contents: subject.contents.map(({ dataValues }) => dataValues),
+                competences: await Promise.all(subject.competences.map(async ({ dataValues }) => {
+                    try {
+                        const ans = await models.unitCompetence.findByPk(dataValues.id, {
+                            include: [
+                                {
+                                    model: models.activity,
+                                }
+                            ]
+                        });
+                        ans.activities.forEach(({ id, title, description }) => activities.push({
+                            id, title, description,
+                        }));
+                        console.log(ans);
+                        return ans;
+                    } catch (e) {
+                        console.log(e);
+                        return {
+                            e
+                        }
+                    }
+                })),
+                academicPlan: subject.academicPlan.dataValues,
+                teacherProfile: subject.teacherProfile,
+                strategy: subject.strategy,
+                Coordinator: subject.Coordinator.map(({ dataValues }) => dataValues),
+                Collaborator: subject.Collaborator.map(({ dataValues }) => dataValues),
+                subject: {
+                    id: subject.id,
+                    name: subject.name,
+                    semester: subject.semester,
+                    modality: subject.modality,
+                    trainingArea: subject.trainingArea,
+                    type: subject.type,
+                    tepic: subject.tepic,
+                    satca: subject.satca,
+                    totalHours: subject.totalHours,
+                    theoryWeek: subject.theoryWeek,
+                    practiceWeek: subject.practiceWeek,
+                    theorySemester: subject.theorySemester,
+                    practiceSemester: subject.practiceSemester,
+                    autonomousLearning: subject.autonomousLearning,
+                    practicePlace: subject.practicePlace,
+                    samePlacePractices: subject.samePlacePractices,
+                    educationalIntention: subject.educationalIntention,
+                }
+            };
+            if (purpose) {
+                const { object, quality, verbId, connectorId } = purpose.dataValues;
+                if (object && quality && verbId && connectorId) {
+                    const verb = await models.verb.findByPk(verbId, {
+                        attributes: ['description'],
+                    });
+                    const connector = await models.connector.findByPk(connectorId, {
+                        attributes: ['description'],
+                    });
+                    finalSubject.purpose = `${verb.description} ${object} ${connector.description} ${quality}`;
+                }
+            }
+            finalSubject.activities = activities;
+            console.log(finalSubject);
+            return res.status(200).send(finalSubject);
+        } catch (e) {
+            console.log(e);
+            return res.status(400).send(e);
         }
     },
 };

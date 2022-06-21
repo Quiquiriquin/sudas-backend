@@ -11,5 +11,5 @@ router.get('/:id', SubjectController.get);
 router.patch('/:id', SubjectController.update);
 router.get('/biblio/:subjectId', SubjectController.getBiblio);
 router.get('/collaborator/:collaborator', SubjectController.collaboratorSubjects);
-
+router.get('/resume/:id', SubjectController.getById)
 module.exports = router;
