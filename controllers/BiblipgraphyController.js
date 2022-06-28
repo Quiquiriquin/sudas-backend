@@ -24,7 +24,7 @@ const BibliographyController = {
           });
           console.log(findAuthor);
           if (findAuthor) {
-            await newBibliography.setAuthor(findAuthor.id);
+            await newBibliography.addAuthor(findAuthor.id);
           } else {
             await newBibliography.createAuthor({
               name: author,
@@ -39,7 +39,7 @@ const BibliographyController = {
           });
           console.log(findEditorial);
           if (findEditorial) {
-            await newBibliography.setEditorial(findEditorial.id);
+            await newBibliography.addEditorial(findEditorial.id);
           } else {
             await newBibliography.createEditorial({
               name: editorial,
