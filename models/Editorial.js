@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     });
     Editorial.associate = function(models) {
         // associations can be defined here
-        Editorial.belongsTo(models.bibliography)
+        Editorial.hasMany(models.bibliography, {
+            foreignKey: 'bibliographyId',
+        })
     };
     return Editorial;
 };

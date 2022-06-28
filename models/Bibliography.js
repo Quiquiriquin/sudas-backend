@@ -40,12 +40,12 @@ module.exports = (sequelize, DataTypes) => {
     });
     Bibliography.associate = function(models) {
         // associations can be defined here
-        Bibliography.hasOne(models.editorial, {
+        Bibliography.belongsTo(models.editorial, {
             foreignKey: 'bibliographyId',
             as: 'editorial',
         });
 
-        Bibliography.hasOne(models.author, {
+        Bibliography.belongsTo(models.author, {
             foreignKey: 'bibliographyId',
             as: 'author',
         });

@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     });
     Author.associate = function(models) {
         // associations can be defined here
-        Author.belongsTo(models.bibliography);
+        Author.hasMany(models.bibliography, {
+            foreignKey: 'authorId',
+            as: 'author'
+        });
     };
     return Author;
 };
