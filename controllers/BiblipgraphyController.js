@@ -4,13 +4,14 @@ import {Op} from 'sequelize';
 const BibliographyController = {
   create: async (req, res) => {
     try {
-      const { title, year, author, type = 'BASIC', library, editorial, subjectId } = req.body;
+      const { title, year, author, type = 'BASIC', library, editorial, subjectId, country } = req.body;
       const newBibliography = await models.bibliography.create({
         title,
         year,
         type,
         library,
         subjectId,
+        country,
       });
       if (newBibliography) {
         if (author) {
