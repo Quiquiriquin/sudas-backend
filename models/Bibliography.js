@@ -26,6 +26,12 @@ module.exports = (sequelize, DataTypes) => {
         country: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        kind: {
+            type: DataTypes.ENUM,
+            allowNull: false,
+            values: ['BOOK', 'ANTOLOGY', 'OTHER'],
+            defaultValue: 'BOOK',
         }
     }, {
         timestamps: true,
