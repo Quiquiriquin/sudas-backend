@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        country: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        }
     }, {
         timestamps: true,
         freezeTableName: true,
