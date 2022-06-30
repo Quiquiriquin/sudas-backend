@@ -259,18 +259,21 @@ const SubjectController = {
             const { collaborator } = req.params;
             const user = await models.user.findByPk(collaborator);
             if (user) {
-                const coordinatorSubjects = await user.getCoordinator({
-                    include: {
-                        all: true,
-                    },
-                });
-                const collaboratorSubjects = await user.getCollaborator({
-                    include: {
-                        all: true,
-                    },
-                });
+                const coordinatorSubjects = await user.getCoordinator();
+                const collaboratorSubjects = await user.getCollaborator();
                 const aux = coordinatorSubjects.concat(collaboratorSubjects);
-                return res.status(200).send(aux);
+                console.log('COORDINATOR: ', coordinatorSubjects.length)
+                console.log('COLLABORATOR: ', coordinatorSubjects.length)
+                const finalAux = aux.map(async ({ dataValues }) => {
+                    const { id } = dataValues;
+                    const ans = await models.subject.findByPk(id, {
+                        include: {
+                            all: true,
+                        },
+                    });
+                    return ans;
+                });
+                return res.status(200).send(await Promise.all(finalAux) );
             } else {
                 return res.status(200).send([]);
             }

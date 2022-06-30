@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         year: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.STRING
         },
         type: {
@@ -30,8 +30,16 @@ module.exports = (sequelize, DataTypes) => {
         kind: {
             type: DataTypes.ENUM,
             allowNull: false,
-            values: ['BOOK', 'ANTOLOGY', 'OTHER'],
+            values: ['BOOK', 'ANTOLOGY', 'OTHER', 'TEXT', 'OTHERS', 'DICTIONARIES', 'KEYNOTES', 'VIDEOS', 'TURORIALS', 'IMAGES', 'SIMUL', 'MEMORY'],
             defaultValue: 'BOOK',
+        },
+        found: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        url: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     }, {
         timestamps: true,
@@ -41,12 +49,12 @@ module.exports = (sequelize, DataTypes) => {
     Bibliography.associate = function(models) {
         // associations can be defined here
         Bibliography.belongsTo(models.editorial, {
-            foreignKey: 'bibliographyId',
+            foreignKey: 'editorialId',
             as: 'editorial',
         });
 
         Bibliography.belongsTo(models.author, {
-            foreignKey: 'bibliographyId',
+            foreignKey: 'authorId',
             as: 'author',
         });
     };

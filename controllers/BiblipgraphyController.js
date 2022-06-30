@@ -4,7 +4,7 @@ import {Op} from 'sequelize';
 const BibliographyController = {
   create: async (req, res) => {
     try {
-      const { title, year, author, type = 'BASIC', library, editorial, subjectId, country, kind } = req.body;
+      const { title, year, author, type = 'BASIC', library, editorial, subjectId, country, kind, url, found } = req.body;
       const newBibliography = await models.bibliography.create({
         title,
         year,
@@ -13,6 +13,8 @@ const BibliographyController = {
         subjectId,
         country,
         kind,
+        url,
+        found,
       });
       if (newBibliography) {
         if (author) {
@@ -26,9 +28,11 @@ const BibliographyController = {
           if (findAuthor) {
             await newBibliography.setAuthor(findAuthor.id);
           } else {
+            console.log('Se creo el autor');
             await newBibliography.createAuthor({
               name: author,
             });
+            console.log('Aquí se murió');
           }
         }
         if (editorial) {
@@ -37,7 +41,7 @@ const BibliographyController = {
               [Op.or]: [{ name: editorial }, { id: editorial }],
             },
           });
-          console.log(findEditorial);
+          console.log('EDITORIAL: ', findEditorial);
           if (findEditorial) {
             await newBibliography.setEditorial(findEditorial.id);
           } else {
@@ -47,17 +51,17 @@ const BibliographyController = {
           }
         }
       }
-      await newBibliography.save();
+      // await newBibliography.save();
       const reqBiblio = await models.bibliography.findByPk(newBibliography.id, {
         include: [
           {
             model: models.author,
             as: 'author',
           },
-          {
+          ...(editorial ? {
             model: models.editorial,
             as: 'editorial',
-          },
+          } : {} )
         ],
       });
       return res.status(201).send(reqBiblio);
@@ -95,6 +99,7 @@ const BibliographyController = {
         complementary: [],
         cyber: [],
       };
+      console.log(tempBibliographies);
       tempBibliographies.forEach(({ dataValues: { type } }, index) => {
         finalBibliographies[type.toLowerCase()] = [...finalBibliographies[type.toLowerCase()], tempBibliographies[index].dataValues];
       });

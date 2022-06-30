@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     Editorial.associate = function(models) {
         // associations can be defined here
         Editorial.hasMany(models.bibliography, {
-            foreignKey: 'bibliographyId',
+            foreignKey: 'editorialId',
         })
     };
     return Editorial;
