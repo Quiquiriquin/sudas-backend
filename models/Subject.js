@@ -75,6 +75,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: 'Escuela',
         },
+        curricularLine: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     }, {
         timestamps: true,
         freezeTableName: true,
