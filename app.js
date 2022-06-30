@@ -30,6 +30,8 @@ const authors = require('./routes/authors');
 const editorials = require('./routes/editorials');
 const teachersProfiles = require('./routes/teacherProfiles');
 const activities = require('./routes/activities');
+const skills = require('./routes/skills');
+const attitudes = require('./routes/attitudes');
 const app = express();
 
 db.sequelize.sync({ alter: true });
@@ -58,6 +60,8 @@ app.use('/api/v1/bibliography',  bibliographies);
 app.use('/api/v1/editorial',  editorials);
 app.use('/api/v1/author',  authors);
 app.use('/api/v1/activities',  activities);
+app.use('/api/v1/skills', skills);
+app.use('/api/v1/attitudes',  attitudes);
 
 const port = normalizePort(process.env.PORT || '4040');
 app.set('port', port);
