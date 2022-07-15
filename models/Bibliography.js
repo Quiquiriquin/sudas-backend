@@ -40,6 +40,12 @@ module.exports = (sequelize, DataTypes) => {
         url: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        idType: {
+            type: DataTypes.ENUM,
+            allowNull: false,
+            values: ['ISBN', 'ID', 'ISSN'],
+            defaultValue: 'ISBN',
         }
     }, {
         timestamps: true,
