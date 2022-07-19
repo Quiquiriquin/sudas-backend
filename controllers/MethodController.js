@@ -52,11 +52,12 @@ const MethodController = {
   },
   update: async (req, res) => {
     try {
-      const { id, description, label } = req.body;
+      const { id, description, label, writing } = req.body;
       await models.method.update(
         {
           ...(description ? { description } : {}),
           ...(label ? { label } : {}),
+          ...(writing ? { writing } :  {}),
         },
         {
           where: {
