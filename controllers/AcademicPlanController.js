@@ -173,6 +173,22 @@ const AcademicPlanController = {
             });
         }
     },
+    updateAuthorities: async (req, res) => {
+        try {
+            const { body } = req;
+            const { id } = req.params;
+            const academicPlan = await models.academicPlan.findByPk(id);
+            Object.keys(body).forEach((key) => {
+                academicPlan[key] = body[key];
+            });
+            await academicPlan.save();
+            return res.status(200).send({
+                message: "Academic plan updated successfully",
+            });
+        } catch (e) {
+            return res.status(400).send(new Error(e));
+        }
+    },
 };
 
 export default AcademicPlanController;

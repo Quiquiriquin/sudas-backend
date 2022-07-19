@@ -35,6 +35,34 @@ module.exports = (sequelize, DataTypes) => {
                 values: ['ACTIVE', 'INACTIVE', 'DELETED']
             }),
         },
+        reviewedBy: {
+            allowNull: true,
+            type: DataTypes.STRING,
+        },
+        approvedBy: {
+            allowNull: true,
+            type: DataTypes.STRING,
+        },
+        designedBy: {
+            allowNull: true,
+            type: DataTypes.STRING,
+        },
+        authorizedBy: {
+            allowNull: true,
+            type: DataTypes.STRING,
+        },
+        approvedBy2: {
+            allowNull: true,
+            type: DataTypes.STRING,
+        },
+        principal: {
+            allowNull: true,
+            type: DataTypes.STRING,
+        },
+        subPrincipal: {
+            allowNull: true,
+            type: DataTypes.STRING,
+        },
     }, {
         timestamps: true,
         freezeTableName: true,
