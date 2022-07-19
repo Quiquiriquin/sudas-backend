@@ -8,5 +8,5 @@ router.post('/', AcademicPlanController.create);
 router.get('/', AcademicPlanController.list);
 router.get('/:id', AcademicPlanController.get);
 router.patch('/:id', AcademicPlanController.update);
-rputer.patch('/authorities/:id', AcademicPlanController.updateAuthorities);
+router.patch('/authorities/:id', AcademicPlanController.updateAuthorities);
 module.exports = router;
