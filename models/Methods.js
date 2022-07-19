@@ -14,11 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING(1000),
     },
-    writing: {
-      allowNull: false,
-      defaultValue: false,
-      type: DataTypes.BOOLEAN,
-    }
   }, {
     timestamps: true,
     freezeTableName: true,
