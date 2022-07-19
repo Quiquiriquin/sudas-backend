@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       allowNull: false,
       type: DataTypes.STRING(1000),
+    },
+    writing: {
+      allowNull: false,
+      defaultValue: false,
+      type: DataTypes.BOOLEAN,
     }
   }, {
     timestamps: true,
