@@ -358,6 +358,7 @@ const SubjectController = {
                     practiceSemester: subject.practiceSemester,
                     autonomousLearning: subject.autonomousLearning,
                     practicePlace: subject.practicePlace,
+                    optionalLine: subject.optionalLine,
                     samePlacePractices: subject.samePlacePractices,
                     educationalIntention: subject.educationalIntention,
                 }
