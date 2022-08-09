@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         idType: {
             type: DataTypes.ENUM,
             allowNull: false,
-            values: ['ISBN', 'ID', 'ISSN'],
+            values: ['ISBN', 'ID', 'ISSN', 'DOI'],
             defaultValue: 'ISBN',
         }
     }, {
