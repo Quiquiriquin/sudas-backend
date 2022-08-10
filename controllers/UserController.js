@@ -1,4 +1,5 @@
 import sequelize, {Op} from 'sequelize';
+import jwt from 'jsonwebtoken';
 import models from '../models/index';
 import bcrypt from 'bcrypt';
 
@@ -94,14 +95,19 @@ const UserController = {
       if (user) {
         const validPassword = await bcrypt.compare(passwordBeforeHash, user.password);
         if(validPassword) {
-          delete user.password;
-          return res.status(200).send(user);
+          delete user.dataValues.password;
+          const a_t = await jwt.sign(user.dataValues, process.env.TOKEN_SECRET, {
+            expiresIn: '168h',
+          });
+          console.log({...user, a_t})
+          return res.status(200).send({...user.dataValues, a_t});
         }
       }
       return res.status(400).send({
         message: 'Invalud email or password',
       });
     } catch (e){
+      console.log(e);
       return res.status(400).send({
         message: 'Something happened',
         errors: e.errors,

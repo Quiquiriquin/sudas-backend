@@ -6,6 +6,7 @@ import http from 'http';
 import verbsRoutes from './routes/verbs';
 import connectorsRoutes from './routes/connectors';
 import achivementsRoutes from './routes/achivements';
+const jwt = require('jsonwebtoken');
 const debug = require('debug', 'sudas-backend:server')
 const express = require('express');
 const path = require('path');
@@ -34,13 +35,42 @@ const skills = require('./routes/skills');
 const attitudes = require('./routes/attitudes');
 const app = express();
 
-db.sequelize.sync({ alter: true });
+db.sequelize.sync();
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(async function (req, res, next) {
+try {
+  console.log('MIDDLEWARE');
+  console.log(req.originalUrl);
+  if (!req.originalUrl.includes('login')) {
+    const { authorization } = req.headers;
+    if (!authorization) {
+      return res.status(403).send({
+        message: "Unauthorized",
+      });
+    }
+
+    const token = authorization.split(' ')[1];
+    if (token !== "null" && token) {
+      await jwt.verify(token, process.env.TOKEN_SECRET);
+      req.user = await jwt.decode(token);
+      console.log(req.user);
+      return next()
+    }
+  } else {
+    return next();
+  }
+
+  return res.status(403).send();
+} catch (e) {
+  console.log(e);
+  return res.status(403).send();
+}
+});
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/dashboard', dashboardRouter);
