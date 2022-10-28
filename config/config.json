@@ -15,12 +15,7 @@
     "host": "148.204.161.191",
     "dialect": "mysql",
     "port": 3306,
-    "ssl": true,
-    "dialectOptions": {
-      "options": {
-        "requestTimeout": 3000
-      }
-    }
+    "ssl": true
   },
   "production": {
     "username": "root",
