@@ -17,6 +17,12 @@
     "dialectOptions": {
       "connectTimeout": 30000
     },
+    "pool": {
+      "max": 20,
+      "min": 0,
+      "acquire": 60000,
+      "idle": 10000
+    },
     "port": 3306
   },
   "production": {
