@@ -14,8 +14,7 @@
     "database": "udas_dev",
     "host": "148.204.161.191",
     "dialect": "mysql",
-    "port": 3306,
-    "ssl": true
+    "port": 3306
   },
   "production": {
     "username": "root",
