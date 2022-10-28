@@ -15,7 +15,7 @@
     "host": "148.204.161.191",
     "dialect": "mysql",
     "dialectOptions": {
-      "connectTimeout": 30000
+      "connectTimeout": 60000
     },
     "pool": {
       "max": 20,
