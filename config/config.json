@@ -9,13 +9,13 @@
     "ssl": false
   },
   "test": {
-    "username": "doadmin",
-    "password": "AVNS_FpUIdyro4dQx_2g",
-    "database": "defaultdb",
-    "host": "sudas-testing-2-do-user-11557131-0.b.db.ondigitalocean.com",
+    "username": "innova",
+    "password": "1nnOv4",
+    "database": "udas_dev",
+    "host": "148.204.161.191",
     "dialect": "mysql",
-    "port": 25060,
-    "ssl": true
+    "port": 3306,
+    "ssl": false
   },
   "production": {
     "username": "root",

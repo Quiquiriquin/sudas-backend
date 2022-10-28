@@ -45,8 +45,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(async function (req, res, next) {
 try {
   console.log('MIDDLEWARE');
+  console.log(req.hostname);
   console.log(req.originalUrl);
-  if (!req.originalUrl.includes('login')) {
+  if (!req.originalUrl.includes('login') && req.hostname !== 'localhost') {
     const { authorization } = req.headers;
     if (!authorization) {
       return res.status(403).send({
