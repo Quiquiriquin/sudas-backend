@@ -19,7 +19,7 @@ if (config.use_env_variable) {
   delete config.database;
   delete config.username;
   delete config.password;
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(database, username, password, config);
 }
 
 fs
