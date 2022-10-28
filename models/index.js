@@ -15,6 +15,10 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   console.log('LoG ANTES DE; ', config);
+  const { database, username, password } = config;
+  delete config.database;
+  delete config.username;
+  delete config.password;
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
