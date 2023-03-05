@@ -96,7 +96,7 @@ const UserController = {
         const validPassword = await bcrypt.compare(passwordBeforeHash, user.password);
         if(validPassword) {
           delete user.dataValues.password;
-          const a_t = await jwt.sign(user.dataValues, process.env.TOKEN_SECRET, {
+          const a_t = await jwt.sign(user.dataValues, 'xTL5i)Vd2cch2~Itu!rW/13YQY@erA', {
             expiresIn: '168h',
           });
           console.log({...user, a_t})
