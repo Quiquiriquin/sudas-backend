@@ -35,7 +35,6 @@ const skills = require('./routes/skills');
 const attitudes = require('./routes/attitudes');
 const app = express();
 db.sequelize.authenticate().then((res) => 'TODO COOL CON LA BASE').catch((err) => console.log('ERROR EN LA BASE: ', err));
-db.sequelize.sync();
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
